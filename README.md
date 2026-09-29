@@ -1,4 +1,4 @@
-# Dueuno Skills
+# Dueuno Developer
 Develop Dueuno applications with AI
 
 

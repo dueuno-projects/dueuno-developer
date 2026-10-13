@@ -24,3 +24,13 @@ Write code that is easy to read and understand for developers that are new to th
 - Within a Table configuration, always write multiple lines when declaring table `columns`, `keys`, `sortable`, `labels` and any time you need to declare a List, Map or List<Map>.
 - Within a Form configuration, always write multiple lines when calling methods with more than one argument. Do not add blank lines between properties assignments or method calls.
 
+# I18n
+- I18n keys have a prefix. It can be `app`, `shell` or `default`. Other prefixes should match a controller name.
+- Group i18n keys following this order:
+  1. app.*
+  2. group.
+  3. Other keys that cannot be grouped in any of the previous categories
+  4. shell.*
+  5. default.*
+  6. {controllerName}.*
+

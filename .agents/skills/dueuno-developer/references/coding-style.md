@@ -25,6 +25,7 @@ Write code that is easy to read and understand for developers that are new to th
 - Within a Form configuration, always write multiple lines when calling methods with more than one argument. Do not add blank lines between properties assignments or method calls.
 
 # I18n
+
 - I18n keys have a prefix. It can be `app`, `shell` or `default`. Other prefixes should match a controller name.
 - Group i18n keys following this order:
   1. app.*
@@ -34,3 +35,7 @@ Write code that is easy to read and understand for developers that are new to th
   5. default.*
   6. {controllerName}.*
 
+
+# Dueuno
+
+- When calling `display` within an action, set the required named parameters in the following order: `transition`, `content`, `controller`, `action`, `params`, `modal`, `small`, `large`, `fullscreen`, `closeButton`, `focus`

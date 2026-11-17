@@ -52,17 +52,9 @@ class BootStrap {
 }
 ```
 
-- [ ] Delete the file `grails-app/controllers/**/UrlMappings.groovy`.
-
-- [ ] Delete all files in:
-  - `grails-app/assets/javascripts/`
-  - `grails-app/assets/stylesheets/`
-  - `grails-app/assets/images/`
-  - `grails-app/views/`
-
 - [ ] Create the following files:
-  - `grails-app/assets/javascripts/application.js`
-  - `grails-app/assets/stylesheets/application.css`
+  - `grails-app/assets/javascripts/dueuno.js`
+  - `grails-app/assets/stylesheets/dueuno.css`
 
 - [ ] Replace `grails-app/init/BootStrap.groovy` with `BootStrap.groovy` from assets.
 
@@ -89,15 +81,17 @@ javamelody:
     storage-directory: ${user.dir}/${project-name}/java-melody
 
 ---
-grails:
-  plugin:
-    springsecurity:
-      debug:
-        useFilter: true
-  controllers:
-    upload:
-      maxFileSize: 20000000
-      maxRequestSize: 20000000
+spring:
+  threads:
+    virtual:
+      enabled: true
+  h2:
+    console:
+      enabled: true
+  servlet:
+    multipart:
+      maxFileSize: 20MB
+      maxRequestSize: 20MB
 ```
 
 - [ ] Set the H2 database URL to `jdbc:h2:./project-name/project-name;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE`.
@@ -155,6 +149,7 @@ Write services using a strongly typed approach to improve code clarity and self-
 
 - [ ] Ask the user for the domain class name if it is not specified in the prompt.
 - [ ] Use the template found in `assets` to create a new service.
+- [ ] Maintain the code styling and formatting of the service template
 - [ ] The service name is not prefixed with `T`.
 - [ ] Implement the filters for each field in the specified domain class.
 - [ ] Define `fetch` properties for each relationship in the domain class.
@@ -168,6 +163,7 @@ Controllers are written using a scripting style. Being the highest layer of the 
 
 - [ ] To create a controller, a domain class and a service must exist in the project. If they do not exist, ask the user to create them.
 - [ ] Use the template found in `assets` to create a new controller.
+- [ ] Maintain the code styling and formatting of the controller template
 - [ ] The controller name is not prefixed with `T`.
 - [ ] Implement the related feature in `BootStrap.groovy`. For the first controller of the application, set the `favourite` parameter to `true`.
 - [ ] Dueuno provides the following component types: `Content`, `Component`, `Controller`.
@@ -225,6 +221,7 @@ Verify each of the following steps before proceeding.
 - [ ] Defines forms in `buildForm`.
 - [ ] Keeps business logic out of controllers.
 - [ ] Builds UI only with Dueuno APIs.
+- [ ] Format code using the reference `coding-style`
 
 IMPORTANT: The `applicationService.onInit()` method MUST be called after the `onInstall`, `onTenantInstall`, and `onDevInstall` closures; otherwise installation will not run.
 

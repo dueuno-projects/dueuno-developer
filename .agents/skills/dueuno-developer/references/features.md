@@ -14,11 +14,11 @@ Registers a feature.
 class BootStrap {
 
     ServletContext servletContext
-    ApplicationService applicationService
+    DueunoApplication dueunoApplication
 
     def init = {
 
-        applicationService.onInit {
+        dueunoApplication.onInit {
             registerFeature(
                     controller: 'book', // <1>
                     action: 'index', // <2>
@@ -86,11 +86,11 @@ Registers a feature in the _User Menu_. It accepts the same options as [register
 class BootStrap {
 
     ServletContext servletContext
-    ApplicationService applicationService
+    DueunoApplication dueunoApplication
 
     def init = {
 
-        applicationService.onInit {
+        dueunoApplication.onInit {
             registerUserFeature(
                     controller: 'manual',
                     icon: 'fa-book',
@@ -112,11 +112,11 @@ Registers a string template used to render an instance of a specific class. A pr
 class BootStrap {
 
     ServletContext servletContext
-    ApplicationService applicationService
+    DueunoApplication dueunoApplication
 
     def init = {
 
-        applicationService.onInit {
+        dueunoApplication.onInit {
             registerPrettyPrinter(TProject, '${it.name}') //<1>
             registerPrettyPrinter('PROJECT_ID', '${it.padLeft(4, "0")}') // <2>
         }
@@ -172,12 +172,12 @@ Registers a callback used to render an instance of a specific class. To use a tr
 class BootStrap {
 
     ServletContext servletContext
-    ApplicationService applicationService
+    DueunoApplication dueunoApplication
     SecurityService securityService
 
     def init = {
 
-        applicationService.onInit {
+        dueunoApplication.onInit {
             registerTransformer('USER_FULLNAME') { Object value ->
                 return securityService.getUserByUsername(value).fullname
             }
@@ -197,11 +197,11 @@ Registers a role and the people who held that role during project development. W
 class BootStrap {
 
     ServletContext servletContext
-    ApplicationService applicationService
+    DueunoApplication dueunoApplication
 
     def init = {
 
-        applicationService.onInit {
+        dueunoApplication.onInit {
             registerCredits('Application Development', 'Francesco Piceghello', 'Gianluca Sartori')
         }
 

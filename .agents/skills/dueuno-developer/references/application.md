@@ -1,6 +1,6 @@
 # Application
 
-`ApplicationService` is the main entry point for application setup. It is usually configured in `BootStrap.groovy`.
+`DueunoApplication` is the main entry point for application setup. It is usually configured in `BootStrap.groovy`.
 
 ## onInstall()
 
@@ -12,11 +12,11 @@ Runs only the first time the application starts.
 class BootStrap {
 
     ServletContext servletContext
-    ApplicationService applicationService
+    DueunoApplication dueunoApplication
 
     def init = {
 
-        applicationService.onInstall {
+        dueunoApplication.onInstall {
             // ...
         }
 
@@ -34,11 +34,11 @@ Installs tenant-specific data. This closure runs once for the `DEFAULT` tenant d
 class BootStrap {
 
     ServletContext servletContext
-    ApplicationService applicationService
+    DueunoApplication dueunoApplication
 
     def init = {
 
-        applicationService.onTenantInstall { String tenantId -> //<1>
+        dueunoApplication.onTenantInstall { String tenantId -> //<1>
             // ...
         }
 
@@ -60,11 +60,11 @@ This closure is not executed when the application runs as a JAR, as a WAR, or in
 class BootStrap {
 
     ServletContext servletContext
-    ApplicationService applicationService
+    DueunoApplication dueunoApplication
 
     def init = {
 
-        applicationService.onDevInstall { String tenantId ->
+        dueunoApplication.onDevInstall { String tenantId ->
             // ...
         }
 
@@ -84,23 +84,23 @@ Each closure runs only once at startup. Execution order is determined alphabetic
 class BootStrap {
 
     ServletContext servletContext
-    ApplicationService applicationService
+    DueunoApplication dueunoApplication
 
     def init = { // <1>
 
-        applicationService.onUpdate('2021-01-03') { String tenantId ->
+        dueunoApplication.onUpdate('2021-01-03') { String tenantId ->
             println "${tenantId}: UPDATE N.2"
         }
 
-        applicationService.onUpdate('2021-01-02') { String tenantId ->
+        dueunoApplication.onUpdate('2021-01-02') { String tenantId ->
             println "${tenantId}: UPDATE N.1"
         }
 
-        applicationService.onUpdate('2021-01-05') { String tenantId ->
+        dueunoApplication.onUpdate('2021-01-05') { String tenantId ->
             println "${tenantId}: UPDATE N.4"
         }
 
-        applicationService.onUpdate('2021-01-04') { String tenantId ->
+        dueunoApplication.onUpdate('2021-01-04') { String tenantId ->
             println "${tenantId}: UPDATE N.3"
         }
     }
@@ -121,11 +121,11 @@ IMPORTANT: Define the `onInit` closure after `onInstall`, `onTenantInstall`, and
 class BootStrap {
 
     ServletContext servletContext
-    ApplicationService applicationService // <1>
+    DueunoApplication dueunoApplication // <1>
 
     def init = {
 
-        applicationService.onInit { // <2>
+        dueunoApplication.onInit { // <2>
             // ...
         }
 
@@ -133,7 +133,7 @@ class BootStrap {
 }
 ```
 
-1. Injects an instance of `ApplicationService`.
+1. Injects an instance of `DueunoApplication`.
 2. The `onInit { ... }` closure runs every time the application starts.
 
 ## afterLogin()
@@ -200,12 +200,12 @@ Set the `failOnError` argument to `true` to prevent the application from running
 class BootStrap {
 
     ServletContext servletContext
-    ApplicationService applicationService
+    DueunoApplication dueunoApplication
     CompanyService companyService
 
     def init = {
 
-        applicationService.onDevInstall { String tenantId ->
+        dueunoApplication.onDevInstall { String tenantId ->
             companyService.create(
                     failOnError: true,
                     name: 'Northwind Trading',
@@ -251,12 +251,12 @@ You can make the application available under a specific URL path, for example `h
 class BootStrap {
 
     ServletContext servletContext
-    ApplicationService applicationService
+    DueunoApplication dueunoApplication
     TenantPropertyService tenantPropertyService
 
     def init = {
 
-        applicationService.onTenantInstall { String tenantId ->
+        dueunoApplication.onTenantInstall { String tenantId ->
             tenantPropertyService.setString('SHELL_URL_MAPPING', '/admin')
             tenantPropertyService.setString('LOGIN_LANDING_URL', '/') // <1>
             tenantPropertyService.setString('LOGOUT_LANDING_URL', '/') // <2>

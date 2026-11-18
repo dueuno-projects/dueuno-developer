@@ -40,11 +40,11 @@ Use this skill when the task involves:
 class BootStrap {
 
     ServletContext servletContext
-    ApplicationService applicationService
+    DueunoApplication dueunoApplication
 
     def init = {
 
-        applicationService.onInit {
+        dueunoApplication.onInit {
             // no-op // <1>
         }
 
@@ -58,7 +58,37 @@ class BootStrap {
 
 - [ ] Replace `grails-app/init/BootStrap.groovy` with `BootStrap.groovy` from assets.
 
-- [ ] Replace `grails-app/conf/logback-spring.xml` with `logback-spring.xml` from assets.
+- [ ] Add the logging configuration to `application.yml`:
+```yaml
+---
+logging:
+  level:
+    root: ERROR
+    org.springframework.boot.SpringApplication: INFO
+    dueuno: DEBUG
+    apptest: DEBUG
+    # dueuno.commons.utils.SqlUtils: TRACE
+    # dueuno.ImportUtils: TRACE
+    # org.grails.datastore: DEBUG
+    # org.hibernate.SQL: DEBUG
+    # org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    # org.springframework.security: DEBUG
+    # grails.plugin.springsecurity.web.filter.DebugFilter: INFO
+    # sun.net.www.protocol.http.HttpURLConnection: ALL
+  file:
+    name: ${info.app.name}/logs/${info.app.name}.log
+  logback:
+    rollingpolicy:
+      file-name-pattern: ${info.app.name}/logs/archive/${info.app.name}.%d{yyyy-MM-dd}.%i.log.zip
+      clean-history-on-start: true
+      max-history: 10
+      max-file-size: 10MB
+      total-size-cap: 100GB
+  pattern:
+    # Logback highlights ERROR in bold red and WARN in red; make plain red yellow and INFO default.
+    console: "\u001B[90m%d{HH:mm:ss.SSS}\u001B[39m %replace(%replace(%highlight(%-5level)){'\\u001B\\[31m','\u001B[33m'}){'\\u001B\\[(32|34|35)m','\u001B[39m'} \u001B[90m[%thread]\u001B[39m \u001B[90m%-40.40logger{36}\u001B[39m \u001B[90m:\u001B[39m %replace(%replace(%highlight(%msg%n)){'\\u001B\\[31m','\u001B[33m'}){'\\u001B\\[(32|34|35)m','\u001B[39m'}"
+    file: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %-40.40logger{36} : %msg%n'
+```
 
 - [ ] Add the following configuration to `application.yml`, replacing `${project-name}` with the project name:
 ```yml
@@ -138,7 +168,7 @@ class TCompany implements GormEntity, MultiTenant<TCompany> {
 }
 ```
 
-- [ ] Register a pretty printer for the class in the `applicationService.onInit` method.
+- [ ] Register a pretty printer for the class in the `dueunoApplication.onInit` method.
 
 IMPORTANT: Verify with the Compliance Checklist and correct if needed
 
@@ -223,7 +253,7 @@ Verify each of the following steps before proceeding.
 - [ ] Builds UI only with Dueuno APIs.
 - [ ] Format code using the reference `coding-style`
 
-IMPORTANT: The `applicationService.onInit()` method MUST be called after the `onInstall`, `onTenantInstall`, and `onDevInstall` closures; otherwise installation will not run.
+IMPORTANT: The `dueunoApplication.onInit()` method MUST be called after the `onInstall`, `onTenantInstall`, and `onDevInstall` closures; otherwise installation will not run.
 
 ### Forbidden Deviations
 

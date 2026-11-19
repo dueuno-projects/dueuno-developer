@@ -58,15 +58,16 @@ class BootStrap {
 
 - [ ] Replace `grails-app/init/BootStrap.groovy` with `BootStrap.groovy` from assets.
 
-- [ ] Add the logging configuration to `application.yml`:
+- [ ] Add the logging configuration to `application.yml` (replace `appname` with the application name):
 ```yaml
 ---
 logging:
   level:
     root: ERROR
     org.springframework.boot.SpringApplication: INFO
+    org.springframework.boot.StartupInfoLogger: INFO
     dueuno: DEBUG
-    apptest: DEBUG
+    appname: INFO
     # dueuno.commons.utils.SqlUtils: TRACE
     # dueuno.ImportUtils: TRACE
     # org.grails.datastore: DEBUG
@@ -112,6 +113,8 @@ javamelody:
 
 ---
 spring:
+  main:
+    banner-mode: console
   threads:
     virtual:
       enabled: true
